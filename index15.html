@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="inValue">
+    <input :value="inValue" @input="inValue = $event.target.value">
+    <!-- slot 태그는 자식 컴포넌트안에 부모의 dom요소가 없을경우 보여지는 태그 입니다. -->
+    <child-component>
+      <p>이곳은 부모의 영역입니다.</p>
+      <p>이 태그를 넣었기 때문에 slot 태그의 하위 내용은 보이지 않습니다.</p>
+    </child-component>
+    <br/>
+    <child-component>
+    </child-component>
+  </div>
+  <script>
+    const Child = {
+      template: `<div>
+        <h2>나는 자식 컴포넌트의 제목입니다.</h2>
+        <slot>
+          제공된 컨텐츠가 없을 경우에만 보입니다.
+        </slot>
+      </div>`
+    }
+    const vm = new Vue({
+      el: '#app',
+      components: {
+        'child-component': Child
+      },
+      data () {
+        return {
+          inValue: 0
+        }
+      }
+    })
+  </script>
+</body>
+</html>

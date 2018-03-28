@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <my-component message="Hello" message2="World" message-three="VueJS"></my-component>
+    <!-- 부모의 data값을 동적 바인딩을 하려면 아래와 같이 사용하면 된다. -->
+    <input type="text" v-model="modelValue">
+    <additional-comp :input-msg="modelValue"></additional-comp>
+    <!-- 부모 component에서 정의한 객체형 자체를 하위 컴포넌트로 보낼 수 있다. -->
+    <add-comp2 :input-obj="inputObj"></add-comp2>
+
+    <!-- props로 받지 않는 속성은 root element의 속성으로 들어가게 된다. -->
+    <test-comp test-attr="true"></test-comp>
+  </div>
+  <script>
+    // 1. props를 사용하면 parameter를 받을 수 있다.
+    // 2. html에서는 kebab-case를 사용하고, JS에서는 camelCase를 사용한다.
+    Vue.component('my-component', {
+      props: ['message', 'message2', 'messageThree'],
+      template: '<span>{{message}} {{message2}} {{messageThree}}</span>'
+    });
+    
+    Vue.component('additional-comp', {
+      props: ['inputMsg'],
+      template: '<span> binding msg: {{ inputMsg }}'
+    });
+    
+    Vue.component('add-comp2', {
+      props: ['inputObj'],
+      template: '<p>inputObj.prop1 : {{inputObj.prop1}}, inputObj.prop2 : {{ inputObj.prop2 }}, inputObj.prop3: {{ inputObj.prop3 || "not found" }}</p>'
+    });
+
+    Vue.component('test-comp', {
+      template: '<div><input type="text"></div>'
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          modelValue: '',
+          inputObj: {
+            prop1: 'this is property1',
+            prop2: 'this is property2'
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

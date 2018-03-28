@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      {{ total }}
+      <button-container @increment="incrementTotal"></button-container>
+      <button-container @increment="incrementTotal"></button-container>
+    </div>
+  </div>
+  <script>
+    // 각각의 컴포넌트에서 자기가 구현할 함수를 작성
+    const buttonContainer = {
+      template: '<button @click="incrementCounter">{{ counter }}</button>',
+      data () {
+        return {
+          counter: 0
+        }
+      },
+      methods: {
+        incrementCounter () {
+          this.counter += 1;
+          // 상위 컴포넌트에서는 increment라는 함수로 인식하게 된다. (HTML)
+          this.$emit('increment')
+        }
+      }
+    }
+
+    const vm = new Vue({
+      el: '#app',
+      components: {
+        buttonContainer: buttonContainer
+      },
+      data () {
+        return {
+          total: 0
+        }
+      },
+      methods: {
+        // 하위 컴포넌트에서 increment로 보낸 이벤트를 부모 컴포넌트에서는 incrementTotal이라는 이름을 써서 받고 있다.
+        incrementTotal () {
+          this.total += 1;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
