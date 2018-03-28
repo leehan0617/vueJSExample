@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1 v-if="ok">Yes</h1>
+    <h1 v-else>No</h1>
+
+    <template v-if="ok">
+      <h2>Title</h2>
+      <p>Paragraph1</p>
+      <p>Paragraph2</p>
+    </template>
+
+    <!-- v-show는 단순히 css 속성만 바꾸는 속성이다. v-if의 경우 element상에서 완전에 제거 되지만, v-show는 display속성만 none로 변경한다. -->
+    <h3 v-show="ok">show true</h3>
+
+    <!-- key라는 property를 부여함으로써 각각은 독립된 element로 관리가 된다. -->
+    <!-- 만약 key속성을 생략한다면 vue는 같은 element로 인식을하고 dom을 변경하지 않는다. --> 
+    <template v-if="loginType">
+      <label>이름</label>
+      <input type="text" key="username-input">
+    </template>
+    <template v-else>
+      <label>이메일</label>
+      <input type="text" key="useremail-input">
+    </template>
+    <!-- key라는 property를 제거 했을 경우 dom 변경을 하지 않는다. -->
+    <template v-if="loginType">
+      <label>이름</label>
+      <input type="text">
+    </template>
+    <template v-else>
+      <label>이메일</label>
+      <input type="text">
+    </template>
+
+    <button @click="toggle">로그인 유형 변경</button>
+
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          ok: true,
+          loginType: true
+        }
+      },
+      methods: {
+        toggle() {
+          this.loginType = !this.loginType
+        }
+      }
+    })
+  </script>
+</body>
+</html>

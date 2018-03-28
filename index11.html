@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-model을 사용하여 양방향 바인딩을 할 수 있다. -->
+    <input type="text" v-model="myInput">
+    <p>Input Text: {{ myInput }}</p>
+    <!-- textarea는 아래와 같은 문법으로 적용해야 정상작동 한다. -->
+    <p>Textarea: {{ myTextarea }}</p>
+    <textarea v-model="myTextarea"></textarea>
+    <!-- checkbox는 boolean 값을 가진다. -->
+    <input type="checkbox" id="checkbox" v-model="myCheck">
+    <label for="checkbox">{{myCheck}}</label>
+    <!-- 여러개의 체크박스는 배열값을 통해 확인할 수 있다. -->
+    <div>
+      <input type="checkbox" id="chkId1" value="ch1" v-model="checkArray">
+      <label for="chkId1">ch1</label>
+      <input type="checkbox" id="chkId2" value="ch2" v-model="checkArray">
+      <label for="chkId2">ch2</label>
+      <input type="checkbox" id="chkId3" value="ch3" v-model="checkArray">
+      <label for="chkId3">ch3</label>
+    </div>
+    <p v-show="checkArray.length">체크된 배열 값: {{ checkArray }}</p>
+    <!-- radio button -->
+    <input type="radio" id="radio1" value="One" v-model="myRadio">
+    <label for="radio1">One</label>
+    <input type="radio" id="radio2" value="Two" v-model="myRadio">
+    <label for="radio2">Two</label>
+    <p>{{ myRadio }}</p>
+    <!-- select iOS의 경우 초기값이 없을 경우 버그가 발생할 수 있다. 아래와 같이 임의값을 주던가, select에 특정값을 바인딩 시켜야 한다. -->
+    <select v-model="mySelect">
+      <option disabled value="">Select One</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <span>Selected: {{ mySelect }}</span>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          myInput: '',
+          myTextarea: '',
+          myCheck: true,
+          checkArray: [],
+          myRadio: '',
+          mySelect: ''
+        }
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+</html>

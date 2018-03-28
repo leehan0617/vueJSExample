@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 유지보수가 복잡하다 anti pattern -->
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <p>원본 메세지 : {{ message }}</p>
+    <!-- computed를 사용하려면 ()를 생략, methods는 ()를 사용해야 정상 작동됨 -->
+    <!-- computed, methods에 같은 이름의 함수명을 사용하면 methods가 적용됨 (computed는 무시) -->
+    <!-- 또한 computed는 캐싱을 하는 효과가 있기 때문에 반복 사용할경우 computed를 사용할 것을 권장 -->
+    <p>뒤집히도록 계산된 메세지 : {{ reversedMessage }}</p>
+    <!-- watch 속성을 사용하여 데이터를 감시할 수 있다. -->
+    <!-- 그러나 computed를 사용하는것이 코드 가독성이 더 좋아지기 때문에 computed를 권장 -->
+    <p>{{ fullName }}</p>
+    <!-- watch 속성은 computed만으로 하기 부담스러운 작업 (비동기, 추가 로직실행...) 이 있을때 사용 권장 -->
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          message: 'this is message',
+          firstName: 'Foo',
+          lastName: 'Bar',
+        }
+      },
+      computed: {
+        reversedMessage () {
+          return this.message.split('').reverse().join('')
+        },
+        fullName: function () {
+          return this.firstName + '' + this.lastName
+        }
+      },
+      methods : {
+        /*
+        reversedMessage () {
+          return this.message.split('').reverse().join('');
+        },
+        */
+      },
+      /*
+      watch: {
+        firstName (val) {
+          this.fullName = val + '' + this.lastName
+        },
+        lastName (val) {
+          this.fullName = this.firstName + '' + val
+        }
+      }
+      */
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <span v-once>{{ msg }}</span>
+    <p>{{ msg }}</p>
+    <div>
+      <p>Using Mustache: {{ rawHtml }}</p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+      <a v-bind:href="url">naver</a>
+      <a :href="google">google</a>
+      <a v-on:click="doSomething">doSomething</a>
+      <a @click="doSomething">doSomething2</a>
+    </div>
+    <!-- Html 속성에는 mustache속성을 사용할 수 없음. v-bind directive를 활용하자. -->
+    <div v-bind:id="bindId">
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          msg: 'message',
+          rawHtml: '<span style="color:red">this should be red</span>',
+          bindId: 'bindId',
+          url: 'http://naver.com',
+          google: 'http://google.com'
+        }
+      },
+      methods: {
+        doSomething() {
+          alert('doSomething');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

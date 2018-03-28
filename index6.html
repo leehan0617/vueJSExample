@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <a class="test" @click="doSomething" :class="{ actuve: isActive }">google</a>
+    <!-- 속성 값에는 '' 처리를 해줘야 한다. 속성 property에는 camel case로 작성을 해줘야 된다. -->
+    <p :style="{color: 'blue', fontSize: '19px'}">naver</p>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          isActive: true
+        }
+      },
+      methods: {
+        doSomething() {
+          alert('doSomething?')
+        }
+      }
+    })
+  </script>
+  <style>
+    .actuve {
+      cursor: pointer;
+    }
+
+    .test {
+      color: red;
+    }
+  </style>
+</body>
+</html>

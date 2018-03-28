@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <todo-item
+        v-for="item in groceryList"
+        v-bind:todo="item"
+        v-bine:key="item.id">
+      </todo-item>
+    </ul>
+  </div>
+  <script>
+    // vue객체를 생성하기 전에 component정의를 먼저 해야 한다.
+    Vue.component('todo-item', {
+      template: '<li>{{ todo.text }}</li>',
+      props: ['todo']
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data () {
+        return {
+          groceryList: [
+            {
+              id: 1,
+              text: '할일1',
+              done: false
+            },
+            {
+              id: 2,
+              text: '할일2',
+              done: false
+            }
+          ]
+        }
+      }
+
+    });
+  </script>
+</body>
+</html>

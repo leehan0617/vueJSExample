@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <component-exam1></component-exam1>
+    <my-component></my-component>
+  </div>
+  <script>
+    // 전역 컴포넌트 등록
+    Vue.component('component-exam1', {
+      template: '<div>my component exam1</div>'
+    });
+
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+          
+        }
+      }
+    });
+    
+    // 아래와 같이 전역으로 생성하지 않고 컴포넌트 속성으로 등록할 수 있다.
+    // 단, 이경우엔 이 하위 컴포넌트만 사용할 수 있다.
+    // component로 사용할 경우 data는 반드시 함수여야 한다.
+    const Child = {
+      template: '<div>This is Child Template {{ childMsg }}</div>',
+      data() {
+        return {
+          childMsg: 'Hello'
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        'my-component': Child
+      }
+    });
+  </script>
+</body>
+</html>

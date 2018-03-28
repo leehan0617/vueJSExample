@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{ a }}</p>
+    <p>{{ c }}</p>
+  </div>
+  <script>
+    var data = {
+      a: 1
+    }
+
+    var vm = new Vue({
+      el: '#app',
+      data: data
+    })
+
+    console.log(data.a === vm.a);
+    data.a = 3; // 선언 이후 data가 수정 되어도 vue에서 인식을 할 수 있다. 
+    data.b = 4; // vue에 선언 이후 객체 속성을 추가 해도 vue에서는 인식하지 못한다.
+    console.log(vm.a); // 3
+    console.log(vm.b); // undefined
+    vm.c = 'abc'; // 화면에 출력은 되지만 갱신되지 않고, 에러가 출력됨 , anti pattern
+  </script>
+</body>
+</html>

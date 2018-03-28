@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 간단한 이벤트 정의 예제 (anti pattern) 메소드로 분리하자. -->
+    <button @click="counter += 1">Add Counter</button>
+    <p>Counter: {{ counter }}</p>
+    <!-- 수정된 이벤트 -->
+    <button @click="myEvent">Add Counter</button>
+    <p>Counter: {{ counter }}</p>
+    <!-- 아래와 같이 parameter를 넣을 수 있다. -->
+    <button @click="say('Ho')">Say Ho</button>
+    <button @click="say('Ha')">Say Ha</button>
+    <!-- event를 전달하려면 아래와 같이 사용하면 된다. -->
+    <button @click="transEvent('text', $event)">Transport Event</button>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data () {
+        return {
+          counter: 0
+        }
+      },
+      methods: {
+        // event parameter를 default로 받을 수 있다.
+        myEvent(event) {
+          console.log(event);
+          this.counter++;
+        },
+        // parameter가 1개 이상일 경우 event 객체를 받을 수 없다. 
+        say(msg, ...arg) {
+          console.log(arg);
+          alert(msg);
+        },
+        // 호출을할때 $event를 사용함으로써 이벤트 객체를 전달 받을 수 있다.
+        transEvent(msg, event) {
+          console.log(msg);
+          console.log(event);
+          const {type: eventType} = event;
+          console.log(eventType);
+        }
+      }
+    })
+  </script>
+</body>
+</html>
